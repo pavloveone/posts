@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, ListGroup } from 'react-bootstrap';
 import { Post } from '../post/post'
 import axios from 'axios';
-
-const apiUrl = 'https://jsonplaceholder.typicode.com';
+import { apiUrl } from '../../utils/variables';
 
 
 export const Posts = () => {
@@ -21,7 +20,7 @@ export const Posts = () => {
         <Container>
             <ListGroup>
                 { posts.length > 0 && posts.map(post => (
-                    <Post post={post} />
+                    <Post key={post.id} post={post} />
                 ))}
             </ListGroup>
         </Container>

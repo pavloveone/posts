@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Button, Image, ListGroupItem } from 'react-bootstrap';
+import { Button, Image, ListGroupItem, Nav } from 'react-bootstrap';
 import axios from 'axios';
 import avatar from '../../images/avatar.png';
-
-const apiUrl = 'https://jsonplaceholder.typicode.com';
+import { Comment } from '../comment/comment';
+import { apiUrl } from '../../utils/variables';
 
 
 export const Post = ({ post }) => {
+
+    const { id, title, body, userId } = post;
     
     const [comments, setComments] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
@@ -19,22 +21,20 @@ export const Post = ({ post }) => {
         setIsVisible(!isVisible)
     }
     return (
-        <ListGroupItem key={post.id} variant='secondary' className='my-2'>
-            <Image src={avatar} roundedCircle style={{ width: '20%', height: 'auto' }} />
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
+        <ListGroupItem variant='secondary' className='my-2'>
+            <Nav.Link href={`${userId}`}>
+                <Image src={avatar} roundedCircle style={{ width: '20%', height: 'auto' }} />
+            </Nav.Link>
+            <h2>{title}</h2>
+            <p>{body}</p>
             {!isVisible && (
-                <Button onClick={() => response(post.id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Комментарии</Button>
+                <Button onClick={() => response(id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Комментарии</Button>
             )}
             {isVisible && comments.length > 0 && comments.map(comment => (
-                <ul key={comment.id}>
-                    <li>{comment.name}</li>
-                    <li>{comment.email}</li>
-                    <li>{comment.body}</li>
-                </ul>
+                <Comment key={comment.id} comment={comment} />
             ))}
-            {isVisible && (
-                <Button onClick={() => response(post.id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Скрыть комментарии</Button>
+            {isVisible && comments.length > 0 && (
+                <Button onClick={() => response(id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Скрыть комментарии</Button>
             )}
         </ListGroupItem>
     );  
