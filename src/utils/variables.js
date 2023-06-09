@@ -1,5 +1,9 @@
 export const apiUrl = 'https://jsonplaceholder.typicode.com';
 
+export const checkReponse = res => {
+  return res.status === 200 ? res.data : res.data.then((err) => Promise.reject(err));
+};
+
 export function sortPosts(posts, sortDirection) {
     const sortedPosts = [...posts];
   

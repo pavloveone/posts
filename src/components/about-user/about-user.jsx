@@ -1,30 +1,28 @@
 import { useState, useEffect } from 'react';
 import {  Button, Container, ListGroup, ListGroupItem, Nav } from 'react-bootstrap';
-import { apiUrl } from '../../utils/variables';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Post } from '../post/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../services/actions/user';
+import { getUsersPosts } from '../../services/actions/users-posts';
 
 
 export const AboutUser = () => {
 
-    const [user, setUser] = useState(null);
-    const [userPosts, setUserPosts] = useState([])
-    const [isVisible, setIsVisible] = useState(false);
+    const dispatch = useDispatch();
     const { userId } = useParams();
 
+    const { user } = useSelector(state => state.user)
+    const { usersPosts } = useSelector(state => state.usersPosts)
+
+    const [isVisible, setIsVisible] = useState(false);
+
     useEffect(() => {
-        userId && axios.get(`${apiUrl}/users/${userId}`).then((resp) => {
-            const userData = resp.data;
-            setUser(userData);
-        })
-    }, [userId])
+        dispatch(getUser(userId))
+    }, [dispatch, userId])
 
     const getPosts = (userId) => {
-        !!user && axios.get(`${apiUrl}/users/${userId}/posts`).then((resp) => {
-            const postsData = resp.data;
-            setUserPosts(postsData);
-        })
+        dispatch(getUsersPosts(userId))
         setIsVisible(!isVisible)
     }
     return (
@@ -42,7 +40,7 @@ export const AboutUser = () => {
                     <ListGroupItem>Вебсайт: {user.website}</ListGroupItem>
                     <ListGroupItem>Компания: {user.company.name}</ListGroupItem>
                     <Button onClick={() => getPosts(userId)} className='mt-2' style={{ width: '40%' }} variant='primary'>{!isVisible ? 'Все посты пользователя' : 'Скрыть все посты пользователя'}</Button>
-                    {userPosts.length > 0 && isVisible && userPosts.map(post => (
+                    {usersPosts.length > 0 && isVisible && usersPosts.map(post => (
                         <Post key={post.id} post={post} />
                     ))}
                 </ListGroup>

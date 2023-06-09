@@ -1,23 +1,22 @@
 import { useState } from 'react';
 import { Button, Image, ListGroupItem, Nav } from 'react-bootstrap';
-import axios from 'axios';
 import avatar from '../../images/avatar.png';
 import { Comment } from '../comment/comment';
-import { apiUrl } from '../../utils/variables';
+import { useDispatch, useSelector } from 'react-redux';
+import { getComments } from '../../services/actions/comments';
 
 
 export const Post = ({ post }) => {
 
     const { id, title, body, userId } = post;
+
+    const dispatch = useDispatch();
     
-    const [comments, setComments] = useState([]);
+    const { comments } = useSelector(state => state.comments)
     const [isVisible, setIsVisible] = useState(false);
 
     const response = (id) => {
-        axios.get(`${apiUrl}/comments?postId=${id}`).then((resp) => {
-            const allComments = resp.data;
-            setComments(allComments);
-        })
+        dispatch(getComments(id))
         setIsVisible(!isVisible)
     }
     return (

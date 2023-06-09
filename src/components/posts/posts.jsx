@@ -1,25 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Container, ListGroup } from 'react-bootstrap';
-import axios from 'axios';
-import { apiUrl } from '../../utils/variables';
 import { Paginations } from '../paginations/paginations';
 import { SearchBar } from '../search-bar/search-bar';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from '../../services/actions/posts';
 
 export const Posts = () => {
-    
-    const [ posts, setPosts ] = useState([]);
+
     const [searchTerm, setSearchTerm] = useState('');
+    const { posts } = useSelector(state => state.posts)
+
+    const dispatch = useDispatch();
 
     const handleSearch = (term) => {
       setSearchTerm(term);
     }
 
     useEffect(() => {
-    axios.get(`${apiUrl}/posts`).then((resp) => {
-        const allPosts = resp.data;
-        setPosts(allPosts);
-    });
-    }, [setPosts]);
+        dispatch(getPosts());
+    }, [dispatch]);
 
     return (
         <Container>
