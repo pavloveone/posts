@@ -11,6 +11,7 @@ function App() {
       <Routes>
         <Route path='/posts' element={<Posts />} />
         <Route path=':userId' element={<AboutUser />} />
+
       </Routes>
     </div>
   );

@@ -1,15 +1,27 @@
-import {  Nav, Navbar } from 'react-bootstrap';
+import {  Container, Image, Nav, Navbar } from 'react-bootstrap';
+import avatar from '../../images/avatar.png';
 
 
 export const AppHeader = () => {
 
     return (
-        <Navbar bg="dark" variant="dark">
-          <Nav className="me-auto">
-            <Nav.Link href="posts">Список постов</Nav.Link>
-            <Nav.Link href="about-me">Обо мне</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: 'space-between' }}>
+          <Nav className="mr-auto">
+            <Nav.Link href="/posts">Список постов</Nav.Link>
+            <Nav.Link href="/about">Обо мне</Nav.Link>
           </Nav>
-        </Navbar>
+          <div className="d-flex align-items-center">
+          <Image src={avatar} roundedCircle style={{ width: '50px', height: 'auto' }} className='mr-2' />
+            <div>
+              <div className="font-weight-bold">Павлов Александр</div>
+              <div className="text-muted">pavloveone@yandex.ru</div>
+            </div>
+          </div>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     );
 }
