@@ -12,7 +12,7 @@ export const getUser = (userId) => dispatch => {
     .then(res => 
         dispatch({
             type: GET_USER_SUCCESS,
-            payload: res
+            payload: res.data
         }))
     .catch(error => {
         console.log(error)

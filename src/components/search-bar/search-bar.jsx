@@ -21,7 +21,7 @@ export const SearchBar = ({ handleSearch }) => {
   return (
     <InputGroup className="mb-2 mt-4">
       <FormControl
-        placeholder="Search by post title"
+        placeholder="Search"
         value={searchText}
         onChange={handleChange}
       />

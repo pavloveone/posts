@@ -38,33 +38,16 @@ export const Paginations = ({ items, searchTerm }) => {
     return items && sortedPosts.slice(start, end).map((post) => <Post key={post.id} post={post} />);
   }
 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <Pagination.Item key={i} id={i} onClick={handleClick} active={i === currentPage}>
-          {i}
-        </Pagination.Item>
-      );
-    }
-
-    return pageNumbers;
-  }
-
   return (
     <>
       {items.length > 0 && (
-        <Button style={{  width: '15%'}} variant="primary" onClick={handleSortClick}>Sort by Title</Button>
+        <Button style={{ width: '120px' }} size="sm" variant="primary" onClick={handleSortClick}>Sort by Title</Button>
       )}
       {renderItems()}
       {items.length > 0 && (
       <Pagination>
-        <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
         <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
-        {renderPageNumbers()}
         <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages} />
-        <Pagination.Last onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} />
       </Pagination>
       )}
     </>

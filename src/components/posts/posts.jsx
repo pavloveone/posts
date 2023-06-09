@@ -8,7 +8,7 @@ import { getPosts } from '../../services/actions/posts';
 export const Posts = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
-    const { posts } = useSelector(state => state.posts)
+    const { posts } = useSelector(state => state.posts);
 
     const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ export const Posts = () => {
 
     return (
         <Container>
-        <SearchBar handleSearch={handleSearch} />
+            <SearchBar handleSearch={handleSearch} />
             <ListGroup>
                 {posts.length > 0 && (
                     <Paginations items={posts} searchTerm={searchTerm} />

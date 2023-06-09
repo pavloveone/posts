@@ -12,7 +12,7 @@ export const getPosts = () => dispatch => {
     .then(res => 
         dispatch({
             type: GET_POSTS_SUCCESS,
-            payload: res
+            payload: res.data
         }))
     .catch(error => {
         console.log(error)

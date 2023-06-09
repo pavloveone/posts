@@ -12,7 +12,7 @@ export const getComments = (id) => dispatch => {
     .then(res => 
         dispatch({
             type: GET_COMMENTS_SUCCESS,
-            payload: res
+            payload: res.data
         }))
     .catch(error => {
         console.log(error)

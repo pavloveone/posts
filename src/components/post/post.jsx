@@ -12,7 +12,7 @@ export const Post = ({ post }) => {
 
     const dispatch = useDispatch();
     
-    const { comments } = useSelector(state => state.comments)
+    const { comments, isLoading } = useSelector(state => state.comments)
     const [isVisible, setIsVisible] = useState(false);
 
     const response = (id) => {
@@ -29,10 +29,10 @@ export const Post = ({ post }) => {
             {!isVisible && (
                 <Button onClick={() => response(id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Комментарии</Button>
             )}
-            {isVisible && comments.length > 0 && comments.map(comment => (
+            {isVisible && !isLoading && comments.length > 0 && comments.map(comment => (
                 <Comment key={comment.id} comment={comment} />
             ))}
-            {isVisible && comments.length > 0 && (
+            {isVisible && !isLoading && comments.length > 0 && (
                 <Button onClick={() => response(id)} variant="secondary" size="sm" style={{alignSelf: 'center'}}>Скрыть комментарии</Button>
             )}
         </ListGroupItem>
