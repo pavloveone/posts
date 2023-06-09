@@ -4,7 +4,7 @@ import axios from 'axios';
 import { apiUrl } from '../../utils/variables';
 import { Paginations } from '../paginations/paginations';
 
-export const Posts = () => {
+export const Posts = ({ searchTerm }) => {
     
     const [ posts, setPosts ] = useState([]);
 
@@ -19,7 +19,7 @@ export const Posts = () => {
         <Container>
             <ListGroup>
                 {posts.length > 0 && (
-                    <Paginations items={posts} />
+                    <Paginations items={posts} searchTerm={searchTerm} />
                 )}
             </ListGroup>
         </Container>

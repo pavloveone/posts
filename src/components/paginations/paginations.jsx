@@ -1,11 +1,20 @@
-import { Pagination } from 'react-bootstrap';
+import { Pagination, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { Post } from '../post/post'
+import { sortPosts } from '../../utils/variables';
 
-export const Paginations = ({ items }) => {
+export const Paginations = ({ items, searchTerm }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortDirection, setSortDirection] = useState('asc');
 
+  items =  !!searchTerm ? items && items.filter(element => element.title.includes(searchTerm)) : searchTerm ? [] : !searchTerm  && items
+
+  const sortedPosts = sortPosts(items, sortDirection);
+
+  const handleSortClick = () => {
+    setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+  };
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(items.length  / itemsPerPage);
@@ -26,7 +35,7 @@ export const Paginations = ({ items }) => {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
-    return items.slice(start, end).map((post) => <Post key={post.id} post={post} />);
+    return items && sortedPosts.slice(start, end).map((post) => <Post key={post.id} post={post} />);
   }
 
   const renderPageNumbers = () => {
@@ -44,10 +53,12 @@ export const Paginations = ({ items }) => {
   }
 
   return (
-    <div>
-      <ul>
-        {renderItems()}
-      </ul>
+    <>
+      {items.length > 0 && (
+        <Button style={{  width: '15%'}} variant="primary" onClick={handleSortClick}>Sort by Title</Button>
+      )}
+      {renderItems()}
+      {items.length > 0 && (
       <Pagination>
         <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
         <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
@@ -55,6 +66,7 @@ export const Paginations = ({ items }) => {
         <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages} />
         <Pagination.Last onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} />
       </Pagination>
-    </div>
+      )}
+    </>
   );
 }
