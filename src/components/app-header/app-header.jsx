@@ -1,5 +1,5 @@
 import {  Container, Image, Nav, Navbar } from 'react-bootstrap';
-import avatar from '../../images/avatar.png';
+import avatar from '../../images/my_avatar.jpeg';
 
 
 export const AppHeader = () => {
@@ -11,7 +11,7 @@ export const AppHeader = () => {
           <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: 'space-between' }}>
           <Nav className="mr-auto">
             <Nav.Link href="/posts">Список постов</Nav.Link>
-            <Nav.Link href="/about">Обо мне</Nav.Link>
+            <Nav.Link href="/about-me">Обо мне</Nav.Link>
           </Nav>
           <div className="d-flex align-items-center">
           <Image src={avatar} roundedCircle style={{ width: '50px', height: 'auto' }} className='mr-2' />

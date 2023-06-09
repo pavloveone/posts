@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import { FormControl, InputGroup, Button } from 'react-bootstrap';
 
 export const SearchBar = ({ handleSearch }) => {
   const [searchText, setSearchText] = useState('');
@@ -25,12 +25,12 @@ export const SearchBar = ({ handleSearch }) => {
         value={searchText}
         onChange={handleChange}
       />
-      <button className="btn btn-outline-secondary" onClick={handleClear}>
+      <Button variant='outline-secondary' onClick={handleClear}>
         &times;
-      </button>
-      <button className="btn btn-primary" onClick={handleSubmit}>
+      </Button>
+      <Button variant='primary' onClick={handleSubmit}>
         Search
-      </button>
+      </Button>
     </InputGroup>
   );
 }
