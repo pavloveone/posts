@@ -39,10 +39,10 @@ export const AboutUser = () => {
                     <ListGroupItem>Номер телефона: {user.phone}</ListGroupItem>
                     <ListGroupItem>Вебсайт: {user.website}</ListGroupItem>
                     <ListGroupItem>Компания: {user.company.name}</ListGroupItem>
-                    <Button onClick={() => getPosts(userId)} className='mt-2' style={{ width: '240px' }} variant='primary'>{!isVisible ? 'Все посты пользователя' : 'Скрыть все посты пользователя'}</Button>
                     {usersPosts.length > 0 && isVisible && usersPosts.map(post => (
                         <Post key={post.id} post={post} />
                     ))}
+                    <Button onClick={() => getPosts(userId)} className='mt-2' style={{ width: '240px' }} variant='primary'>{!isVisible ? 'Все посты пользователя' : 'Скрыть все посты пользователя'}</Button>
                 </ListGroup>
             )}
         </Container>
